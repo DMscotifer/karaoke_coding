@@ -10,23 +10,23 @@ require_relative("../songs.rb")
 class GuestTest < MiniTest::Test
 
   def setup()
-    @room1 = Room.new("Deluxe Suite", [], 5, @playlist2, 20)
-    @room2 = Room.new("Standard", [], 4, @playlist1, 10)
+    @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20)
+    @room2 = Room.new("Standard", [], 4, @playlist, 10)
     @song1 = Song.new("Don't Stop Me Now!")
     @song2 = Song.new("Bohemian Rhapsody")
     @song3 = Song.new("Crazy Little Thing Called Love")
     @song4 = Song.new("Stand Alone")
     @song5 = Song.new("Running Blind")
     @song6 = Song.new("Serenity")
-    @guest1 = Guest.new("John Smith", nil, 50, @song1)
+    @guest1 = Guest.new("Charlize", nil, 50, @song1)
     @guest2 = Guest.new("Alice", nil, 45, @song2)
     @guest3 = Guest.new("Sarah", nil, 90, @song6)
     @guest4 = Guest.new("Aletta", nil, 200, @song2)
     @guest5 = Guest.new("Lisa", nil, 120, @song3)
-    @playlist1 = [@song1, @song2, @song3]
-    @playlist2 = [@song4, @song5, @song6]
+    @playlist = [@song1, @song2, @song3]
     @guest_list = [@guest1, @guest2, @guest3]
   end
+
 
 def test_check_in()
   @guest1.check_in(@room2)
@@ -60,5 +60,9 @@ end
 def test_has_favourite_song()
   assert_equal(@song1, @guest1.favourite_song)
 end
+
+# def test_favourite_song()
+#   assert_equal("Whoo!...", @guest1.playing_favourite_song)
+# end
 
 end
