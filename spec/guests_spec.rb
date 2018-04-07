@@ -10,8 +10,8 @@ require_relative("../songs.rb")
 class GuestTest < MiniTest::Test
 
   def setup()
-    @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20)
-    @room2 = Room.new("Standard", [], 4, @playlist, 10)
+    @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20, 0)
+    @room2 = Room.new("Standard", [], 4, @playlist, 10, 0)
     @song1 = Song.new("Don't Stop Me Now!")
     @song2 = Song.new("Bohemian Rhapsody")
     @song3 = Song.new("Crazy Little Thing Called Love")
@@ -54,15 +54,16 @@ def test_pay_entry___can_afford_entry()
 end
 
 def test_pay_entry___pay_fee()
-  assert_equal(30, @guest1.pay_entry(@room1))
+  assert_equal(20, @guest1.pay_entry(@room1))
 end
 
 def test_has_favourite_song()
   assert_equal(@song1, @guest1.favourite_song)
 end
 
-# def test_favourite_song()
-#   assert_equal("Whoo!...", @guest1.playing_favourite_song)
-# end
+def test_pay_entry___pay_cashier()
+  @guest1.pay_entry(@room1)
+  assert_equal(20, @room1.cashier)
+end
 
 end

@@ -7,25 +7,23 @@ require_relative("../guests.rb")
 require_relative("../rooms.rb")
 require_relative("../songs.rb")
 
-class RoomsTest < MiniTest::Test
-
-  def setup()
-    @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20)
-    @room2 = Room.new("Standard", [], 4, @playlist, 10)
-    @song1 = Song.new("Don't Stop Me Now!")
-    @song2 = Song.new("Bohemian Rhapsody")
-    @song3 = Song.new("Crazy Little Thing Called Love")
-    @song4 = Song.new("Stand Alone")
-    @song5 = Song.new("Running Blind")
-    @song6 = Song.new("Serenity")
-    @guest1 = Guest.new("Charlize", nil, 50, @song1)
-    @guest2 = Guest.new("Alice", nil, 45, @song2)
-    @guest3 = Guest.new("Sarah", nil, 90, @song6)
-    @guest4 = Guest.new("Aletta", nil, 200, @song2)
-    @guest5 = Guest.new("Lisa", nil, 120, @song3)
-    @playlist = [@song1, @song2, @song3]
-    @guest_list = [@guest1, @guest2, @guest3]
-  end
+def setup()
+  @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20, 0)
+  @room2 = Room.new("Standard", [], 4, @playlist, 10, 0)
+  @song1 = Song.new("Don't Stop Me Now!")
+  @song2 = Song.new("Bohemian Rhapsody")
+  @song3 = Song.new("Crazy Little Thing Called Love")
+  @song4 = Song.new("Stand Alone")
+  @song5 = Song.new("Running Blind")
+  @song6 = Song.new("Serenity")
+  @guest1 = Guest.new("Charlize", nil, 50, @song1)
+  @guest2 = Guest.new("Alice", nil, 45, @song2)
+  @guest3 = Guest.new("Sarah", nil, 90, @song6)
+  @guest4 = Guest.new("Aletta", nil, 200, @song2)
+  @guest5 = Guest.new("Lisa", nil, 120, @song3)
+  @playlist = [@song1, @song2, @song3]
+  @guest_list = [@guest1, @guest2, @guest3]
+end
 
 def test_room_has_name()
   assert_equal("Deluxe Suite", @room1.name)
@@ -111,6 +109,4 @@ def test_playing_favourite_song()
   @room1.occupants = [@guest1]
   @room1.playlist = [@song1, @song2, @song3]
   assert_equal("Whoo!...", @room1.playing_favourite_song)
-end
-
 end
