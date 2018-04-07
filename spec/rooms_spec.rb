@@ -10,22 +10,21 @@ require_relative("../songs.rb")
 class RoomsTest < MiniTest::Test
 
   def setup()
-    @guest1 = Guest.new("John Smith", nil, 50)
-    @guest2 = Guest.new("Alice", nil, 45)
-    @guest3 = Guest.new("Sarah", nil, 90)
-    @guest4 = Guest.new("Aletta", nil, 200)
-    @guest5 = Guest.new("Lisa", nil, 120)
-    @guest_list = [@guest1, @guest2, @guest3]
-    @room1 = Room.new("Deluxe Suite", [], @playlist2)
-    @room2 = Room.new("Standard", [], @playlist1)
+    @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20)
+    @room2 = Room.new("Standard", [], 4, @playlist, 10)
     @song1 = Song.new("Don't Stop Me Now!")
     @song2 = Song.new("Bohemian Rhapsody")
     @song3 = Song.new("Crazy Little Thing Called Love")
     @song4 = Song.new("Stand Alone")
     @song5 = Song.new("Running Blind")
     @song6 = Song.new("Serenity")
-    @playlist1 = [@song1, @song2, @song3]
-    @playlist2 = [@song4, @song5, @song6]
+    @guest1 = Guest.new("John Smith", nil, 50, @song1)
+    @guest2 = Guest.new("Alice", nil, 45, @song2)
+    @guest3 = Guest.new("Sarah", nil, 90, @song6)
+    @guest4 = Guest.new("Aletta", nil, 200, @song2)
+    @guest5 = Guest.new("Lisa", nil, 120, @song3)
+    @playlist = [@song1, @song2, @song3]
+    @guest_list = [@guest1, @guest2, @guest3]
   end
 
 def test_room_has_name()
@@ -57,26 +56,55 @@ def test_remove_guest()
 end
 
 def test_add_song_to_playlist___empty()
+  @room1.playlist = []
   assert_equal(0, @room1.playlist.count)
 end
 
 def test_add_song_to_playlist___add()
+  @room1.playlist = []
   @room1.add_song_to_playlist(@song6)
   assert_equal(1, @room1.playlist.count)
   assert_equal(true, @room1.playlist.include?(@song6))
 end
 
+def test_move_guests()
+  @guest1.check_in(@room2)
+  @guest1.move_to(@room1)
+  assert_equal(@room1, @guest1.in_room)
+end
 
-# def test_room_is_already_occupied()
-#     @room1.occupants = ["Marina", "Rachel", "Ashley"]
-#     assert_equal(["Marina", "Rachel", "Ashley"], @room1.occupants)
-# end
-#
-# def test_room_remove_occupants__person_leaves()
-#   @room1.occupants = ["Marina", "Rachel", "Ashley"]
-#   @room1.occupants.pop()
-#   assert_equal(2, @room1.occupants.count)
-# end
+def test_move_guest___update_occupants()
+  @guest1.check_in(@room2)
+  @room2.add_guest(@guest1)
+  assert_equal(@room2, @guest1.in_room)
+  assert_equal(1, @room2.occupants.count)
+end
+
+def test_update_occupancy()
+  update_occupancy(@guest1, @room2)
+  assert_equal(@room2, @guest1.in_room)
+  assert_equal(1, @room2.occupants.count)
+end
+
+def test_find_guest()
+  update_occupancy(@guest4, @room1)
+  assert_equal(@guest4, @room1.find_guest("Aletta"))
+end
+
+def test_checking_occupancy___restrict()
+  @room1.occupants = [@guest1, @guest2, @guest3, @guest4, @guest5]
+  @room1.add_guest(@guest6)
+  assert_equal(5, @room1.occupants.count)
+end
+
+def test_check_favourite_song()
+  assert_equal(true, @guest1.favourite_song == @song1)
+end
+
+def test_check_favourite_song()
+  @room1.playlist = [@song1, @song2, @song3]
+  assert_equal(true, @guest1.favourite_song == @room1.playlist[0])
+end
 
 
 end
