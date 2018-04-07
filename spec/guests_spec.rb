@@ -61,6 +61,4 @@ def test_has_favourite_song()
   assert_equal(@song1, @guest1.favourite_song)
 end
 
-def test_
-
 end

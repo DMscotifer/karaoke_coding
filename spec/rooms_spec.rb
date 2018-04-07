@@ -63,7 +63,7 @@ end
 def test_add_song_to_playlist___add()
   @room1.playlist = []
   @room1.add_song_to_playlist(@song6)
-  assert_equal(1, @room1.playlist.count)
+  assert_equal(1, @room1.playlist.count())
   assert_equal(true, @room1.playlist.include?(@song6))
 end
 
