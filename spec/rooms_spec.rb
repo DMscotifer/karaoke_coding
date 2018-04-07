@@ -6,10 +6,19 @@ require("minitest/rg")
 require_relative("../guests.rb")
 require_relative("../rooms.rb")
 require_relative("../songs.rb")
+require_relative("../bar.rb")
+require_relative("../drinks.rb")
+
+class RoomTest < MiniTest::Test
+
 
 def setup()
-  @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20, 0)
-  @room2 = Room.new("Standard", [], 4, @playlist, 10, 0)
+  @drink1 = Drink.new("Duff", 3, 3)
+  @drink2 = Drink.new("Corona", 4, 2)
+  @drink3 = Drink.new("Tennents", 3, 2)
+  @drinks_menu = [@drink1, @drink2, @drink3]
+  @room1 = Room.new("Deluxe Suite", [], 5, @playlist, 20, 0, 100)
+  @room2 = Room.new("Standard", [], 4, @playlist, 10, 0, 100)
   @song1 = Song.new("Don't Stop Me Now!")
   @song2 = Song.new("Bohemian Rhapsody")
   @song3 = Song.new("Crazy Little Thing Called Love")
@@ -109,4 +118,6 @@ def test_playing_favourite_song()
   @room1.occupants = [@guest1]
   @room1.playlist = [@song1, @song2, @song3]
   assert_equal("Whoo!...", @room1.playing_favourite_song)
+end
+
 end

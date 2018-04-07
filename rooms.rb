@@ -1,14 +1,15 @@
 require("pry")
 
 class Room
-  attr_accessor :name, :occupants, :max_occ, :playlist, :price, :cashier
-  def initialize(name, occupants, max_occ, playlist, price, cashier)
+  attr_accessor :name, :occupants, :max_occ, :playlist, :price, :cashier, :tab
+  def initialize(name, occupants, max_occ, playlist, price, cashier, tab)
     @name = name
     @occupants = occupants
     @max_occ = max_occ
     @playlist = playlist
     @price = price
     @cashier = cashier
+    @tab = tab
   end
 
   def occupants_list()
@@ -57,6 +58,10 @@ class Room
         return "Whoo!..."
       end
     end
+  end
+
+  def set_bar_tab(bar_tab)
+    @tab = bar_tab
   end
 
 end

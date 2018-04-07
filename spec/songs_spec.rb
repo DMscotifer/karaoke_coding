@@ -6,6 +6,8 @@ require("minitest/rg")
 require_relative("../guests.rb")
 require_relative("../rooms.rb")
 require_relative("../songs.rb")
+require_relative("../bar.rb")
+require_relative("../drinks.rb")
 
 class SongsTest < MiniTest::Test
 
